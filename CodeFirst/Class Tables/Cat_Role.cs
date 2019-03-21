@@ -15,6 +15,6 @@ namespace CodeFirst.Class_Tables
         public string Description { get; set; }
         public int Estado { get; set; }
 
-        public List<Employee_Project> Employee_Projects { get; set; }
+        public virtual List<Employee_Project> Employee_Projects { get; set; }
     }
 }

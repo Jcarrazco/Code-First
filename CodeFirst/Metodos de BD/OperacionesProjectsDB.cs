@@ -12,9 +12,11 @@ namespace CodeFirst.Metodos_de_BD
         //Se instancio el contexto de la BD y  se usa como entities
         private Hitss_TM_Context entities = new Hitss_TM_Context();
         //-------------------Create Query------------------------------------
-        public void CreateProject(Project NewProject)
+        public void CreateProject(Project NewProject, int ID_cliente)
         {
-            entities.projects.Add(NewProject);
+            var client = entities.clients.FirstOrDefault(c => c.Client_ID == ID_cliente);
+            client.projects.Add(NewProject);
+
             entities.SaveChanges();
         }
         //-------------------Read queries------------------------------------

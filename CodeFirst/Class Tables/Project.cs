@@ -17,6 +17,6 @@ namespace CodeFirst.Class_Tables
 
         //public int Client_ID { get; set; }
         public virtual Client Client { get; set; }
-        public List<Employee_Project> Employee_Projects { get; set; }
+        public virtual List<Employee_Project> Employee_Projects { get; set; }
     }
 }

@@ -20,6 +20,6 @@ namespace CodeFirst.Class_Tables
 
         //public int Company_ID { get; set; }
         public virtual Company Company { get; set; }
-        public List<Employee_Project> employee_Projects { get; set; }
+        public virtual List<Employee_Project> employee_Projects { get; set; }
     }
 }
