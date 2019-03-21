@@ -36,6 +36,7 @@ namespace CodeFirst
         private void Cbx_Search_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selection = Cbx_Search.Text;
+            Clear();
             if (selection == "Employee")
             {
                 Lbl_campo1.Text = "First Name";
@@ -118,43 +119,48 @@ namespace CodeFirst
             }
             if (selection == "Company")
             {
-                var DbHitss = new OperacionesCompanyDB();
+                //crea la instancia para los metodos
+                var Ope = new OperacionesCompanyDB();
+                //crea un nuevo objeto compañia y le carga datos
                 Company NewC = new Company();
                 NewC.Name = Txb_Datos1.Text;
                 NewC.Description = Txb_Datos2.Text;
                 NewC.Start_Date = Convert.ToDateTime(Txb_Datos3.Text);
-               
-                DbHitss.CreateCompany(NewC);
+                Ope.CreateCompany(NewC);//Crea nueva compañia
             }
             if (selection == "Client")
             {
-                var DbHitss = new OperacionesClientDB();
+                //crea la instancia para los metodos
+                var Ope = new OperacionesClientDB();
+                //Carga el Id de la compañia
+                int Company_ID = Convert.ToInt32(Txb_Datos3.Text);
+                //crea un nuevo objeto empleado y le carga datos
                 Client NewC = new Client();
                 NewC.Name = Txb_Datos1.Text;
                 NewC.Description = Txb_Datos2.Text;
-                NewC.Company.Company_ID = Convert.ToInt32(Txb_Datos3.Text);
                 NewC.Estado = 1;
-                DbHitss.CreateClient(NewC);
+
+                Ope.CreateClient(NewC,Company_ID);//manda a crear un cliente
             }
             if (selection == "Project")
             {
-                var DbHitss = new OperacionesProjectsDB();
+                var Ope = new OperacionesProjectsDB();
+                int Client_Id = Convert.ToInt32(Txb_Datos3.Text);
                 Project NewP = new Project();
                 NewP.Name = Txb_Datos1.Text;
                 NewP.Description = Txb_Datos2.Text;
-                NewP.Client.Client_ID = Convert.ToInt32(Txb_Datos3.Text);
                 NewP.Estado = 1;
-                DbHitss.CreateProject(NewP);
+
+                Ope.CreateProject(NewP, Client_Id);
             }
             if (selection == "Employee_Project")
             {
-                var DbHitss = new OperacionesEmp_ProjDB();
-                Employee_Project NewEmpPro = new Employee_Project();
-                NewEmpPro.project.Project_ID = Convert.ToInt32(Txb_Datos1.Text);
-                NewEmpPro.Employee.Employee_ID = Convert.ToInt32(Txb_Datos2.Text);
-                NewEmpPro.Cat_Role.Cat_Role_ID = Convert.ToInt32(Txb_Datos3.Text);
-                NewEmpPro.Estado = 1;
-                DbHitss.CreateEmployee_Project(NewEmpPro);
+                var Ope = new OperacionesEmp_ProjDB();
+                int Project_ID = Convert.ToInt32(Txb_Datos1.Text);
+                int Employee_ID = Convert.ToInt32(Txb_Datos2.Text);
+                int Cat_Role_ID = Convert.ToInt32(Txb_Datos3.Text);
+
+                Ope.CreateEmployee_Project(Project_ID,Employee_ID,Cat_Role_ID);
             }
             if (selection == "Role")
             {
@@ -171,6 +177,7 @@ namespace CodeFirst
 
         private void Btn_Buscar_Click(object sender, EventArgs e)
         {
+            Lstb_Results.Items.Clear();
             string selection = Cbx_Search.Text;
             if (selection == "Employee")
             {
@@ -206,6 +213,17 @@ namespace CodeFirst
                 }
 
             }
+            if (selection == "Project")
+            {
+                var DbHitss = new OperacionesProjectsDB();
+                List<Project> Projectss = DbHitss.GetProjects();
+                foreach (Project P in Projectss)
+                {
+                    Lstb_Results.Items.Add(P.Name.ToString() + " " + P.Description.ToString()
+                        + " " + P.Client.Name.ToString());
+                }
+
+            }
             if (selection == "Employee_Project")
             {
                 var DbHitss = new OperacionesEmp_ProjDB();
@@ -227,6 +245,16 @@ namespace CodeFirst
                 }
 
             }
+        }
+
+        public void Clear()
+        {
+            Txb_Datos1.Text = "";
+            Txb_Datos2.Text = "";
+            Txb_Datos3.Text = "";
+            Txb_Datos4.Text = "";
+            Txb_Datos5.Text = "";
+            Txb_Datos6.Text = "";
         }
     }
 }

@@ -15,7 +15,7 @@ namespace CodeFirst.Class_Tables
         public string Description { get; set; }
         public DateTime Start_Date { get; set; }
 
-        public List<Employee> Employees { get; set; }//clases que dependen de esta
-        public List<Client> Clients { get; set; }//clases que dependen de esta
+        public virtual List<Employee> Employees { get; set; }//clases que dependen de esta
+        public virtual List<Client> Clients { get; set; }//clases que dependen de esta
     }
 }

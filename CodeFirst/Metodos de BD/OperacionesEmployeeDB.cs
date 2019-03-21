@@ -14,8 +14,9 @@ namespace CodeFirst.Metodos_de_BD
         //-------------------Create Query------------------------------------
         public void CreateEmployee(Employee NewEmployee, int ID_Company)
         {
-            var Compania = entities.companies.FirstOrDefault(c=>c.Company_ID == ID_Company);
-
+            //Carga el objeto compañia que corresponde con el ID
+            var Compania = entities.companies.FirstOrDefault(c => c.Company_ID == ID_Company);
+            //se realiza la relacion agregando al nuevo employee a la lista de employees de compania
             Compania.Employees.Add(NewEmployee);
             entities.SaveChanges();
         }

@@ -17,6 +17,6 @@ namespace CodeFirst.Class_Tables
 
         //public int Company_ID { get; set; }//FK el nombre debe ser igual
         public virtual Company Company { get; set; }//Clase de la que depende es el ID
-        public List<Project> projects { get; set; }//Clase que depende de esta
+        public virtual List<Project> projects { get; set; }//Clase que depende de esta
     }
 }
